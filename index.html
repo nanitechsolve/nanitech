@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NaniTech (Pty) Ltd – Professional ICT Support, Business Solutions, Website Development, and Digital Services in South Africa." />
+  <meta name="keywords" content="ICT, IT Support, Website Development, Business Solutions, South Africa, NaniTech" />
+  <meta name="author" content="NaniTech (Pty) Ltd" />
+  <title>NaniTech (Pty) Ltd | Technology Solutions That Empower</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+    ============================================================ */
+    :root {
+      --bg-deep:       #050c18;
+      --bg-mid:        #091428;
+      --bg-card:       #0d1f3c;
+      --bg-card-hover: #102548;
+
+      --accent-blue:   #0070f3;
+      --accent-cyan:   #00d4ff;
+      --accent-glow:   rgba(0, 212, 255, 0.18);
+      --accent-glow2:  rgba(0, 112, 243, 0.22);
+
+      --text-white:    #f0f6ff;
+      --text-muted:    #7a96b8;
+      --text-dim:      #3d5a80;
+
+      --border:        rgba(0, 212, 255, 0.12);
+      --border-hover:  rgba(0, 212, 255, 0.4);
+
+      --radius-sm:     8px;
+      --radius-md:     16px;
+      --radius-lg:     24px;
+
+      --transition:    0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-card:   0 8px 40px rgba(0, 20, 60, 0.6);
+      --shadow-glow:   0 0 40px rgba(0, 212, 255, 0.15);
+
+      --font-display:  'Syne', sans-serif;
+      --font-body:     'DM Sans', sans-serif;
+
+      --nav-h:         72px;
+    }
+
+    /* ============================================================
+       LIGHT MODE OVERRIDES  (toggled via html[data-theme="light"])
+    ============================================================ */
+    html[data-theme="light"] {
+      --bg-deep:       #f0f4fb;
+      --bg-mid:        #e4eaf5;
+      --bg-card:       #ffffff;
+      --bg-card-hover: #f5f8ff;
+
+      --accent-blue:   #0055cc;
+      --accent-cyan:   #0098c7;
+      --accent-glow:   rgba(0, 152, 199, 0.12);
+      --accent-glow2:  rgba(0, 85, 204, 0.14);
+
+      --text-white:    #0d1a2e;
+      --text-muted:    #4a647f;
+      --text-dim:      #8faac0;
+
+      --border:        rgba(0, 100, 180, 0.14);
+      --border-hover:  rgba(0, 100, 180, 0.45);
+
+      --shadow-card:   0 8px 40px rgba(0, 40, 100, 0.10);
+      --shadow-glow:   0 0 40px rgba(0, 152, 199, 0.12);
+    }
+
+    /* Light mode: canvas bg slightly more visible */
+    html[data-theme="light"] #bg-canvas { opacity: 0.18; }
+
+    /* Light mode: gradient text needs solid colour fallback for legibility */
+    html[data-theme="light"] .gradient-text,
+    html[data-theme="light"] .section-title span {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Light mode: hero badge */
+    html[data-theme="light"] .hero-badge {
+      background: rgba(0,100,180,0.08);
+      border-color: rgba(0,100,180,0.25);
+    }
+
+    /* Light mode: scrollbar */
+    html[data-theme="light"] ::-webkit-scrollbar-track { background: var(--bg-mid); }
+
+    /* Light mode: orb glow */
+    html[data-theme="light"] .orb-inner {
+      background: radial-gradient(circle, rgba(0,85,204,0.12) 0%, rgba(0,152,199,0.05) 60%, transparent 100%);
+    }
+    html[data-theme="light"] .orb-core {
+      box-shadow: 0 0 40px rgba(0,152,199,0.35), 0 0 80px rgba(0,85,204,0.2);
+    }
+
+    /* Light mode: mobile menu */
+    html[data-theme="light"] .mobile-menu {
+      background: rgba(240,244,251,0.97);
+    }
+
+    /* Light mode: btn-ghost border and text */
+    html[data-theme="light"] .btn-ghost {
+      color: var(--text-white);
+      border-color: rgba(0,85,204,0.35);
+    }
+    html[data-theme="light"] .btn-ghost:hover {
+      color: var(--accent-blue);
+      border-color: var(--accent-blue);
+    }
+
+    /* ============================================================
+       THEME TOGGLE BUTTON
+    ============================================================ */
+    #themeToggle {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      transition: var(--transition);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #themeToggle:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      background: var(--accent-glow);
+    }
+    /* Icon swap */
+    #themeToggle .icon-sun,
+    #themeToggle .icon-moon { position: absolute; transition: opacity 0.25s ease, transform 0.3s ease; }
+    #themeToggle .icon-sun  { opacity: 0; transform: rotate(90deg) scale(0.7); }
+    #themeToggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+    html[data-theme="light"] #themeToggle .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+    html[data-theme="light"] #themeToggle .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.7); }
+
+    /* Light mode nav scrolled */
+    html[data-theme="light"] #navbar.scrolled {
+      background: rgba(240,244,251,0.92);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-h);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-white);
+      line-height: 1.65;
+      overflow-x: hidden;
+      font-size: 16px;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* Smooth theme transitions across all themed surfaces */
+    *, *::before, *::after {
+      transition-property: background-color, border-color, color, box-shadow;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+    }
+    /* But don't let that override animation-heavy elements */
+    .orb, .orb-outer, .orb-mid, .orb-inner, .float-card,
+    .about-mini-card, #bg-canvas, .btn, .nav-links a,
+    .service-card, .why-card, .mv-card, .profile-block,
+    .social-link, #themeToggle {
+      transition: var(--transition);
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 3px; }
+
+    /* ============================================================
+       UTILITY
+    ============================================================ */
+    .container {
+      width: min(1200px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--accent-cyan);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-white);
+    }
+
+    .section-title span {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-top: 0.75rem;
+    }
+
+    /* ============================================================
+       BUTTON STYLES
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: var(--transition);
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(0, 112, 243, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.45);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-white);
+      border: 1.5px solid var(--border-hover);
+    }
+    .btn-ghost:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       ANIMATED BACKGROUND CANVAS
+    ============================================================ */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    #navbar.scrolled {
+      background: rgba(5, 12, 24, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: -0.04em;
+      flex-shrink: 0;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-white);
+    }
+    .logo-text span { color: var(--accent-cyan); }
+
+    /* Desktop nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      letter-spacing: 0.03em;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-cyan);
+      background: var(--accent-glow);
+    }
+    .nav-cta { margin-left: 0.75rem; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 1100;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text-white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 12, 24, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      padding: 0.5rem 2rem;
+      transition: var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--accent-cyan); }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #home {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding-block: 6rem 4rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+    .hero-badge i { font-size: 0.7rem; }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .hero-headline .gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 60%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+    }
+    .hero-stat span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Hero visual – tech orb */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orb-wrap {
+      position: relative;
+      width: 420px;
+      height: 420px;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+    }
+    .orb-outer {
+      inset: 0;
+      border: 1px solid rgba(0,212,255,0.15);
+      animation: spin-slow 20s linear infinite;
+    }
+    .orb-mid {
+      inset: 30px;
+      border: 1px dashed rgba(0,112,243,0.3);
+      animation: spin-slow 15s linear infinite reverse;
+    }
+    .orb-inner {
+      inset: 80px;
+      background: radial-gradient(circle, rgba(0,112,243,0.25) 0%, rgba(0,212,255,0.08) 60%, transparent 100%);
+      border: 1px solid rgba(0,212,255,0.25);
+      animation: pulse-orb 3s ease-in-out infinite;
+    }
+    .orb-core {
+      inset: 140px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      box-shadow: 0 0 60px rgba(0,212,255,0.5), 0 0 120px rgba(0,112,243,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .orb-core i {
+      font-size: 2.5rem;
+      color: #fff;
+    }
+    /* Orbit dots */
+    .orbit-dot {
+      position: absolute;
+      width: 10px; height: 10px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+    .orbit-dot:nth-child(5) { top: 0; left: 50%; transform: translateX(-50%); }
+    .orbit-dot:nth-child(6) { bottom: 40px; right: 20px; background: var(--accent-blue); }
+    .orbit-dot:nth-child(7) { left: 20px; top: 50%; background: #fff; width: 6px; height: 6px; }
+
+    /* Floating cards */
+    .float-card {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-card);
+      animation: float 4s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    .float-card i { color: var(--accent-cyan); }
+    .float-card:nth-of-type(2) { top: 40px; right: -30px; animation-delay: 0.5s; }
+    .float-card:nth-of-type(3) { bottom: 60px; left: -20px; animation-delay: 1s; }
+    .float-card:nth-of-type(4) { bottom: 180px; right: -40px; animation-delay: 1.8s; }
+
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    @keyframes pulse-orb {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0.2); }
+      50% { box-shadow: 0 0 0 20px rgba(0,212,255,0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    #about {
+      position: relative;
+      padding: 7rem 0;
+      z-index: 1;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card-main {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-card);
+    }
+    .about-card-main h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-white);
+    }
+    .value-tag {
+      display: inline-block;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-hover);
+      color: var(--accent-cyan);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      margin: 0.25rem;
+    }
+    .about-mini-card {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.4rem;
+      box-shadow: var(--shadow-card);
+      animation: float 5s ease-in-out infinite;
+    }
+    .about-mini-card:nth-of-type(2) { top: -30px; right: -20px; animation-delay: 0.7s; }
+    .about-mini-card:nth-of-type(3) { bottom: -20px; left: -10px; animation-delay: 1.4s; }
+    .about-mini-card .mini-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .about-mini-card .mini-icon i { color: #fff; font-size: 1.1rem; }
+    .about-mini-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+    .about-mini-card strong { display: block; font-family: var(--font-display); font-size: 0.9rem; color: var(--text-white); }
+
+    .mv-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .mv-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+    .mv-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+    .mv-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, rgba(0,112,243,0.25), rgba(0,212,255,0.15));
+      border: 1px solid var(--border-hover);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 0.85rem;
+    }
+    .mv-icon i { color: var(--accent-cyan); font-size: 1.1rem; }
+    .mv-card h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .mv-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ============================================================
+       SERVICES SECTION
+    ============================================================ */
+    #services {
+      position: relative;
+      padding: 7rem 0;
+      z-index: 1;
+    }
+    #services::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,112,243,0.04) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    .services-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .services-header .section-label { justify-content: center; }
+    .services-header .section-label::before { display: none; }
+    .services-header .section-desc { margin-inline: auto; text-align: center; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+    .service-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon-wrap {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, rgba(0,112,243,0.2), rgba(0,212,255,0.1));
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      margin-bottom: 1.25rem;
+      transition: var(--transition);
+    }
+    .service-card:hover .service-icon-wrap {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      border-color: transparent;
+    }
+    .service-icon-wrap i { color: var(--accent-cyan); font-size: 1.4rem; transition: var(--transition); }
+    .service-card:hover .service-icon-wrap i { color: #fff; }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .service-card ul { padding-left: 0; }
+    .service-card ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      padding: 0.3rem 0;
+    }
+    .service-card ul li i { color: var(--accent-cyan); font-size: 0.7rem; margin-top: 5px; flex-shrink: 0; }
+
+    /* ============================================================
+       WHY CHOOSE US
+    ============================================================ */
+    #why {
+      position: relative;
+      padding: 7rem 0;
+      z-index: 1;
+    }
+    .why-header { margin-bottom: 4rem; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem 1.5rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .why-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow);
+    }
+    .why-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+    }
+    .why-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .why-card p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ============================================================
+       COMPANY PROFILE
+    ============================================================ */
+    #profile {
+      position: relative;
+      padding: 7rem 0;
+      z-index: 1;
+    }
+    #profile::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,212,255,0.03) 50%, transparent);
+      pointer-events: none;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .profile-info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .pic-header {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .pic-avatar {
+      width: 60px; height: 60px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .pic-header h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .pic-header p { font-size: 0.85rem; opacity: 0.85; }
+
+    .pic-body { padding: 1.75rem; }
+    .pic-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      gap: 1rem;
+    }
+    .pic-row:last-child { border-bottom: none; }
+    .pic-row .label { color: var(--text-muted); flex-shrink: 0; }
+    .pic-row .value { font-weight: 600; text-align: right; color: var(--text-white); }
+
+    .profile-right { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .profile-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      transition: var(--transition);
+    }
+    .profile-block:hover { border-color: var(--border-hover); }
+    .profile-block h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .profile-block h4 i { color: var(--accent-cyan); }
+
+    .market-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .market-tag {
+      background: rgba(0,212,255,0.07);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      font-size: 0.82rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+    }
+
+    .goal-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .goal-item i { color: var(--accent-cyan); margin-top: 3px; flex-shrink: 0; }
+
+    /* ============================================================
+       CONTACT SECTION
+    ============================================================ */
+    #contact {
+      position: relative;
+      padding: 7rem 0;
+      z-index: 1;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .contact-info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .ci-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-hover);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .ci-icon i { color: var(--accent-cyan); }
+    .ci-text strong { display: block; font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .ci-text span { font-size: 0.88rem; color: var(--text-muted); }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #25D366;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      width: fit-content;
+      border: none;
+    }
+    .whatsapp-btn:hover { background: #1ebe5b; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.35); }
+
+    /* Contact form */
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+    .contact-form h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.04em; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+      transition: var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-dim); }
+    .form-group select option { background: var(--bg-mid); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent-cyan); background: rgba(0,212,255,0.04); box-shadow: 0 0 0 3px rgba(0,212,255,0.08); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit { width: 100%; padding: 0.9rem; justify-content: center; font-size: 0.95rem; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--accent-cyan);
+      font-family: var(--font-display);
+      font-weight: 700;
+    }
+    .form-success i { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--bg-mid);
+      border-top: 1px solid var(--border);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
+    }
+    .social-links { display: flex; gap: 0.6rem; }
+    .social-link {
+      width: 36px; height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .social-link:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: var(--accent-glow); }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: var(--text-white);
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col ul li a {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--accent-cyan); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+    .footer-bottom span { color: var(--accent-cyan); }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.88) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATION
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       DIVIDER
+    ============================================================ */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin-inline: auto; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      .profile-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .hero-stats { flex-direction: column; gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       ANIMATED BACKGROUND CANVAS
+  ============================================================ -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+
+      <!-- Logo -->
+      <a href="#home" class="nav-logo" aria-label="NaniTech Home">
+        <div class="logo-icon" aria-hidden="true">NT</div>
+        <span class="logo-text">Nani<span>Tech</span></span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" role="list">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#why">Why Choose Us</a></li>
+        <li><a href="#profile">Company Profile</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <a href="#contact" class="btn btn-primary nav-cta">Get a Quote</a>
+
+      <!-- Theme toggle -->
+      <button id="themeToggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+        <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+        <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+      </button>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+    <a href="#home" onclick="closeMobile()">Home</a>
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#services" onclick="closeMobile()">Services</a>
+    <a href="#why" onclick="closeMobile()">Why Choose Us</a>
+    <a href="#profile" onclick="closeMobile()">Company Profile</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+  </div>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="home" aria-label="Hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left: Text -->
+        <div class="hero-content">
+          <div class="hero-badge" aria-label="Location">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            South African ICT Company
+          </div>
+
+          <h1 class="hero-headline">
+            Technology Solutions That<br>
+            <span class="gradient-text">Empower Businesses</span><br>
+            and Individuals
+          </h1>
+
+          <p class="hero-sub">
+            Professional ICT Support, Business Solutions, Website Development, and Digital Services across South Africa — affordable and reliable.
+          </p>
+
+          <div class="hero-btns">
+            <a href="#contact" class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              Request a Quote
+            </a>
+            <a href="#contact" class="btn btn-ghost">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              Contact Us
+            </a>
+          </div>
+
+          <div class="hero-stats" aria-label="Quick stats">
+            <div class="hero-stat">
+              <strong>4+</strong>
+              <span>Service Categories</span>
+            </div>
+            <div class="hero-stat">
+              <strong>100%</strong>
+              <span>SA Owned</span>
+            </div>
+            <div class="hero-stat">
+              <strong>24/7</strong>
+              <span>Remote Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visual -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orb-wrap">
+            <div class="orb orb-outer"></div>
+            <div class="orb orb-mid"></div>
+            <div class="orb orb-inner"></div>
+            <div class="orb orb-core">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <div class="orbit-dot"></div>
+            <div class="orbit-dot"></div>
+            <div class="orbit-dot"></div>
+          </div>
+
+          <!-- Floating info cards -->
+          <div class="float-card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Secure IT Support</span>
+          </div>
+          <div class="float-card">
+            <i class="fa-solid fa-globe"></i>
+            <span>Web Development</span>
+          </div>
+          <div class="float-card">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Fast Response</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about" aria-label="About NaniTech">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Left: visual (desktop only) -->
+        <div class="about-visual" aria-hidden="true">
+          <div class="about-card-main reveal">
+            <h3>Our Core Values</h3>
+            <div>
+              <span class="value-tag">Integrity</span>
+              <span class="value-tag">Professionalism</span>
+              <span class="value-tag">Innovation</span>
+              <span class="value-tag">Customer Focus</span>
+              <span class="value-tag">Reliability</span>
+              <span class="value-tag">Continuous Improvement</span>
+            </div>
+            <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--border);">
+              <p style="font-size:0.88rem; color:var(--text-muted);">Founded by <strong style="color:var(--text-white);">Vuyolwethu Ndolela</strong>, NaniTech was built on a belief that every South African — individuals, entrepreneurs, and communities — deserves access to professional technology support.</p>
+            </div>
+          </div>
+          <div class="about-mini-card">
+            <div class="mini-icon"><i class="fa-solid fa-handshake" aria-hidden="true"></i></div>
+            <strong>Trusted Partner</strong>
+            <p>Long-term relationships built on honesty</p>
+          </div>
+          <div class="about-mini-card">
+            <div class="mini-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+            <strong>Quality First</strong>
+            <p>Premium results at affordable prices</p>
+          </div>
+        </div>
+
+        <!-- Right: content -->
+        <div class="about-content">
+          <p class="section-label reveal">About NaniTech</p>
+          <h2 class="section-title reveal reveal-delay-1">
+            Bridging the Digital Divide in <span>South Africa</span>
+          </h2>
+          <p class="section-desc reveal reveal-delay-2">
+            NaniTech (Pty) Ltd is a South African technology and business support company dedicated to providing innovative, reliable, and affordable ICT solutions. We assist individuals, entrepreneurs, non-profit organisations, and businesses with technology services, digital transformation, and professional online presence development.
+          </p>
+
+          <div class="mv-grid reveal reveal-delay-3">
+            <div class="mv-card">
+              <div class="mv-icon"><i class="fa-solid fa-eye" aria-hidden="true"></i></div>
+              <h4>Our Vision</h4>
+              <p>To become a trusted technology and business support partner that empowers individuals, entrepreneurs, and organisations through innovative digital solutions and exceptional customer service.</p>
+            </div>
+            <div class="mv-card">
+              <div class="mv-icon"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></div>
+              <h4>Our Mission</h4>
+              <p>To provide accessible, affordable, and professional technology services that help clients solve problems, improve productivity, and achieve their business goals.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       SERVICES SECTION
+  ============================================================ -->
+  <section id="services" aria-label="Our Services">
+    <div class="container">
+      <header class="services-header">
+        <p class="section-label reveal">What We Offer</p>
+        <h2 class="section-title reveal reveal-delay-1">Professional <span>ICT Services</span></h2>
+        <p class="section-desc reveal reveal-delay-2">Comprehensive technology and business support solutions tailored for individuals, SMEs, NGOs, and corporates across South Africa.</p>
+      </header>
+
+      <div class="services-grid">
+
+        <!-- IT Support -->
+        <article class="service-card reveal">
+          <div class="service-icon-wrap">
+            <i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
+          </div>
+          <h3>IT Support Services</h3>
+          <ul>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Software troubleshooting &amp; repair</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Operating system support (Windows, Linux)</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Virus &amp; malware removal</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Remote support &amp; diagnostics</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Technical consulting services</li>
+          </ul>
+        </article>
+
+        <!-- Website Development -->
+        <article class="service-card reveal reveal-delay-1">
+          <div class="service-icon-wrap">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+          </div>
+          <h3>Website Development</h3>
+          <ul>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Professional business websites</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Portfolio &amp; personal websites</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Website maintenance &amp; updates</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Domain &amp; hosting assistance</li>
+          </ul>
+        </article>
+
+        <!-- Business Support -->
+        <article class="service-card reveal reveal-delay-2">
+          <div class="service-icon-wrap">
+            <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+          </div>
+          <h3>Business Support Services</h3>
+          <ul>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Company registration assistance</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>B-BBEE support assistance</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Professional CV revamping</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Business documentation &amp; plans</li>
+          </ul>
+        </article>
+
+        <!-- Internet Café -->
+        <article class="service-card reveal reveal-delay-3">
+          <div class="service-icon-wrap">
+            <i class="fa-solid fa-print" aria-hidden="true"></i>
+          </div>
+          <h3>Internet Café Services</h3>
+          <ul>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Printing &amp; scanning</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>High-speed internet access</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Email &amp; communication services</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Online applications assistance</li>
+            <li><i class="fa-solid fa-circle" aria-hidden="true"></i>Digital document services</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       WHY CHOOSE US
+  ============================================================ -->
+  <section id="why" aria-label="Why Choose NaniTech">
+    <div class="container">
+      <div class="why-header">
+        <p class="section-label reveal">Why NaniTech</p>
+        <h2 class="section-title reveal reveal-delay-1">The Right Partner for <span>Your Success</span></h2>
+        <p class="section-desc reveal reveal-delay-2">We combine professionalism with a genuine commitment to affordable, accessible technology for every South African.</p>
+      </div>
+
+      <div class="why-grid">
+
+        <div class="why-card reveal">
+          <div class="why-icon" style="background:rgba(0,112,243,0.15);">
+            <i class="fa-solid fa-award" style="color:#0070f3;" aria-hidden="true"></i>
+          </div>
+          <h3>Professional ICT Support</h3>
+          <p>Qualified technicians and consultants dedicated to delivering expert-level technology solutions for every client.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-1">
+          <div class="why-icon" style="background:rgba(0,212,255,0.12);">
+            <i class="fa-solid fa-tags" style="color:#00d4ff;" aria-hidden="true"></i>
+          </div>
+          <h3>Affordable Solutions</h3>
+          <p>Premium services at fair, transparent prices — ensuring technology remains accessible to individuals and small businesses.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-2">
+          <div class="why-icon" style="background:rgba(16,220,96,0.12);">
+            <i class="fa-solid fa-shield-halved" style="color:#10dc60;" aria-hidden="true"></i>
+          </div>
+          <h3>Reliable Service</h3>
+          <p>Consistent, dependable support you can count on — every project delivered on time with quality you can trust.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-3">
+          <div class="why-icon" style="background:rgba(255,196,0,0.12);">
+            <i class="fa-solid fa-heart" style="color:#ffc400;" aria-hidden="true"></i>
+          </div>
+          <h3>Customer Focused</h3>
+          <p>We listen first. Our solutions are built around your unique needs, goals, and budget — not a one-size-fits-all template.</p>
+        </div>
+
+        <div class="why-card reveal">
+          <div class="why-icon" style="background:rgba(255,100,50,0.12);">
+            <i class="fa-solid fa-bolt" style="color:#ff6432;" aria-hidden="true"></i>
+          </div>
+          <h3>Fast Response</h3>
+          <p>Remote and on-site support delivered swiftly — because downtime costs you money and we respect your time.</p>
+        </div>
+
+        <div class="why-card reveal reveal-delay-1">
+          <div class="why-icon" style="background:rgba(0,212,100,0.12);">
+            <i class="fa-solid fa-flag" style="color:#00d464;" aria-hidden="true"></i>
+          </div>
+          <h3>Local SA Business</h3>
+          <p>Proudly South African — we understand the local landscape, regulations, and the challenges our communities face.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       COMPANY PROFILE
+  ============================================================ -->
+  <section id="profile" aria-label="Company Profile">
+    <div class="container">
+      <p class="section-label reveal">Company Profile</p>
+      <h2 class="section-title reveal reveal-delay-1">Who We Are &amp; <span>Where We're Going</span></h2>
+
+      <div class="profile-grid" style="margin-top:3rem;">
+
+        <!-- Info card -->
+        <div class="profile-info-card reveal">
+          <div class="pic-header">
+            <div class="pic-avatar" aria-hidden="true">VN</div>
+            <div>
+              <h3>NaniTech (Pty) Ltd</h3>
+              <p>Founded by Vuyolwethu Ndolela</p>
+            </div>
+          </div>
+          <div class="pic-body">
+            <div class="pic-row">
+              <span class="label">Industry</span>
+              <span class="value">Information &amp; Communication Technology</span>
+            </div>
+            <div class="pic-row">
+              <span class="label">Registration</span>
+              <span class="value">Pty (Ltd) — South Africa</span>
+            </div>
+            <div class="pic-row">
+              <span class="label">Location</span>
+              <span class="value">South Africa</span>
+            </div>
+            <div class="pic-row">
+              <span class="label">Contact</span>
+              <span class="value">nanitechsolve@gmail.com</span>
+            </div>
+            <div class="pic-row">
+              <span class="label">Founder</span>
+              <span class="value">Vuyolwethu Ndolela</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right blocks -->
+        <div class="profile-right">
+
+          <div class="profile-block reveal">
+            <h4><i class="fa-solid fa-users" aria-hidden="true"></i> Target Market</h4>
+            <div class="market-tags">
+              <span class="market-tag">Individuals</span>
+              <span class="market-tag">Students</span>
+              <span class="market-tag">Entrepreneurs</span>
+              <span class="market-tag">Small Businesses</span>
+              <span class="market-tag">NGOs</span>
+              <span class="market-tag">Corporate Clients</span>
+            </div>
+          </div>
+
+          <div class="profile-block reveal reveal-delay-1">
+            <h4><i class="fa-solid fa-rocket" aria-hidden="true"></i> Business Goals</h4>
+            <div class="goal-item"><i class="fa-solid fa-check-circle" aria-hidden="true"></i><span>Deliver quality technology solutions that exceed client expectations</span></div>
+            <div class="goal-item"><i class="fa-solid fa-check-circle" aria-hidden="true"></i><span>Empower businesses through meaningful digital transformation</span></div>
+            <div class="goal-item"><i class="fa-solid fa-check-circle" aria-hidden="true"></i><span>Bridge the digital divide across South African communities</span></div>
+            <div class="goal-item"><i class="fa-solid fa-check-circle" aria-hidden="true"></i><span>Create sustainable employment and skills development opportunities</span></div>
+          </div>
+
+          <div class="profile-block reveal reveal-delay-2">
+            <h4><i class="fa-solid fa-gem" aria-hidden="true"></i> Our Commitment</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">NaniTech is committed to delivering exceptional ICT services underpinned by integrity and professionalism. We continuously invest in our team and technology to ensure clients always receive modern, effective solutions that genuinely make a difference.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section id="contact" aria-label="Contact NaniTech">
+    <div class="container">
+      <p class="section-label reveal">Get in Touch</p>
+      <h2 class="section-title reveal reveal-delay-1">Let's Talk <span>Technology</span></h2>
+      <p class="section-desc reveal reveal-delay-2" style="margin-bottom:3rem;">Ready to take your business digital? Request a quote or ask us anything — we respond fast.</p>
+
+      <div class="contact-grid">
+
+        <!-- Left: Info -->
+        <div class="contact-info reveal">
+
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
+            <div class="ci-text">
+              <strong>Phone / WhatsApp</strong>
+              <span>+27 65 893 8239</span>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
+            <div class="ci-text">
+              <strong>Email</strong>
+              <span>nanitechsolve@gmail.com</span>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="ci-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></div>
+            <div class="ci-text">
+              <strong>Location</strong>
+              <span>South Africa</span>
+            </div>
+          </div>
+
+          <button onclick="openEnquiryModal()" class="whatsapp-btn" style="background:linear-gradient(135deg,var(--accent-blue),var(--accent-cyan));box-shadow:0 4px 20px rgba(0,112,243,0.4);" aria-label="Send us an enquiry">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            Send Us an Enquiry
+          </button>
+
+          <div style="margin-top:1rem; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.5rem;">
+            <p style="font-size:0.88rem; color:var(--text-muted);">We typically respond within <strong style="color:var(--accent-cyan);">2 hours</strong> during business hours. Remote support is available for urgent ICT issues.</p>
+          </div>
+        </div>
+
+        <!-- Right: Smart Enquiry Form -->
+        <div class="contact-form reveal reveal-delay-1">
+          <h3>Send Us a Message</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1.5rem;">Fill in your details below. When you click Send, choose whether to reach us by <strong style="color:var(--accent-cyan);">Email</strong> or <strong style="color:#25D366;">WhatsApp</strong> — your information will be pre-filled automatically.</p>
+
+          <form id="contactForm" novalidate aria-label="Contact enquiry form">
+
+            <!-- Enquiry type -->
+            <div class="form-group">
+              <label for="enquiryType">Enquiring as *</label>
+              <select id="enquiryType" name="enquiryType" required onchange="toggleOrgField()">
+                <option value="" disabled selected>Select — Individual or Organisation</option>
+                <option value="Individual">Individual</option>
+                <option value="Organisation">Organisation</option>
+              </select>
+            </div>
+
+            <!-- Org name (shown only for Organisation) -->
+            <div class="form-group" id="orgNameGroup" style="display:none;">
+              <label for="orgName">Organisation Name *</label>
+              <input type="text" id="orgName" name="orgName" placeholder="Your organisation's name" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Your full name" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="emailAddr">Email Address *</label>
+                <input type="email" id="emailAddr" name="emailAddr" placeholder="you@example.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+27 XX XXX XXXX" autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label for="service">Service Required *</label>
+                <select id="service" name="service" required>
+                  <option value="" disabled selected>Select a service</option>
+                  <option>IT Support Services</option>
+                  <option>Website Development</option>
+                  <option>Business Support Services</option>
+                  <option>Internet Café Services</option>
+                  <option>General Enquiry</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="extraMsg">Additional Message (optional)</label>
+              <textarea id="extraMsg" name="extraMsg" placeholder="Any extra details about your enquiry…"></textarea>
+            </div>
+
+            <!-- Send button — triggers modal -->
+            <button type="submit" class="btn btn-primary form-submit">
+              <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+              Continue to Send
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ENQUIRY CHANNEL MODAL
+  ============================================================ -->
+  <div id="enquiryModal" role="dialog" aria-modal="true" aria-label="Choose how to contact us" style="display:none; position:fixed; inset:0; z-index:2000; align-items:center; justify-content:center; padding:1rem;">
+    <!-- Backdrop -->
+    <div id="modalBackdrop" onclick="closeEnquiryModal()" style="position:absolute;inset:0;background:rgba(5,12,24,0.88);backdrop-filter:blur(10px);"></div>
+
+    <!-- Modal card -->
+    <div id="modalCard" style="
+      position:relative; z-index:1;
+      background:var(--bg-card);
+      border:1px solid var(--border-hover);
+      border-radius:var(--radius-lg);
+      padding:2.5rem 2rem;
+      width:min(520px, 100%);
+      box-shadow:0 24px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,212,255,0.08);
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    ">
+      <!-- Close -->
+      <button onclick="closeEnquiryModal()" aria-label="Close" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--text-muted);width:32px;height:32px;border-radius:8px;font-size:1rem;display:grid;place-items:center;transition:var(--transition);" onmouseover="this.style.color='var(--accent-cyan)'" onmouseout="this.style.color='var(--text-muted)'">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div style="text-align:center; margin-bottom:1.75rem;">
+        <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--accent-blue),var(--accent-cyan));border-radius:14px;display:grid;place-items:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(0,112,243,0.4);">
+          <i class="fa-solid fa-share-nodes" style="color:#fff;font-size:1.4rem;"></i>
+        </div>
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin-bottom:0.4rem;">How would you like to reach us?</h3>
+        <p style="font-size:0.88rem;color:var(--text-muted);">Your enquiry details will be pre-filled — just review and hit send.</p>
+      </div>
+
+      <!-- Two big option buttons -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+
+        <!-- Email option -->
+        <button onclick="sendViaEmail()" style="
+          background:rgba(0,112,243,0.1);
+          border:1.5px solid rgba(0,112,243,0.4);
+          border-radius:var(--radius-md);
+          padding:1.5rem 1rem;
+          display:flex; flex-direction:column; align-items:center; gap:0.75rem;
+          transition:var(--transition); cursor:pointer; color:var(--text-white);
+        "
+        onmouseover="this.style.background='rgba(0,112,243,0.2)';this.style.borderColor='var(--accent-blue)';this.style.transform='translateY(-3px)'"
+        onmouseout="this.style.background='rgba(0,112,243,0.1)';this.style.borderColor='rgba(0,112,243,0.4)';this.style.transform='translateY(0)'">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--accent-blue),#0090ff);border-radius:12px;display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,112,243,0.4);">
+            <i class="fa-solid fa-envelope" style="color:#fff;font-size:1.3rem;"></i>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:1rem;">Email Us</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">Opens your email app</div>
+          </div>
+        </button>
+
+        <!-- WhatsApp option -->
+        <button onclick="sendViaWhatsApp()" style="
+          background:rgba(37,211,102,0.08);
+          border:1.5px solid rgba(37,211,102,0.35);
+          border-radius:var(--radius-md);
+          padding:1.5rem 1rem;
+          display:flex; flex-direction:column; align-items:center; gap:0.75rem;
+          transition:var(--transition); cursor:pointer; color:var(--text-white);
+        "
+        onmouseover="this.style.background='rgba(37,211,102,0.18)';this.style.borderColor='#25D366';this.style.transform='translateY(-3px)'"
+        onmouseout="this.style.background='rgba(37,211,102,0.08)';this.style.borderColor='rgba(37,211,102,0.35)';this.style.transform='translateY(0)'">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,#25D366,#1aad4e);border-radius:12px;display:grid;place-items:center;box-shadow:0 6px 20px rgba(37,211,102,0.35);">
+            <i class="fa-brands fa-whatsapp" style="color:#fff;font-size:1.4rem;"></i>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:1rem;">WhatsApp</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">Opens WhatsApp chat</div>
+          </div>
+        </button>
+
+      </div>
+
+      <p style="text-align:center;font-size:0.78rem;color:var(--text-dim);margin-top:1.25rem;">
+        <i class="fa-solid fa-lock" style="margin-right:4px;"></i>Your information is only shared directly with NaniTech — we never store it on any server.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo" aria-label="NaniTech Home">
+            <div class="logo-icon" aria-hidden="true">NT</div>
+            <span class="logo-text">Nani<span>Tech</span> (Pty) Ltd</span>
+          </a>
+          <p>Professional ICT support, website development, and business solutions for South Africa — empowering businesses and individuals through technology.</p>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="#" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#why">Why Choose Us</a></li>
+            <li><a href="#profile">Company Profile</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-col">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#services">IT Support</a></li>
+            <li><a href="#services">Website Development</a></li>
+            <li><a href="#services">Business Support</a></li>
+            <li><a href="#services">Internet Café</a></li>
+            <li><a href="#services">CV Revamping</a></li>
+            <li><a href="#services">Remote Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="mailto:nanitechsolve@gmail.com"><i class="fa-solid fa-envelope" style="color:var(--accent-cyan);margin-right:6px;" aria-hidden="true"></i>nanitechsolve@gmail.com</a></li>
+            <li><a href="tel:+27658938239"><i class="fa-solid fa-phone" style="color:var(--accent-cyan);margin-right:6px;" aria-hidden="true"></i>+27 65 893 8239</a></li>
+            <li><a href="#contact"><i class="fa-solid fa-location-dot" style="color:var(--accent-cyan);margin-right:6px;" aria-hidden="true"></i>South Africa</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> <span>NaniTech (Pty) Ltd</span>. All rights reserved.</p>
+        <p>Proudly <span>South African</span> — Technology for Everyone</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    // ——————————————————————————————————————————
+    // THEME TOGGLE (dark / light)
+    // ——————————————————————————————————————————
+    (function() {
+      const html = document.documentElement;
+      const btn  = document.getElementById('themeToggle');
+
+      // Load saved preference, else default to dark
+      const saved = localStorage.getItem('nanitech-theme') || 'dark';
+      html.setAttribute('data-theme', saved);
+
+      btn.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const next    = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('nanitech-theme', next);
+      });
+    })();
+
+    // ——————————————————————————————————————————
+    // YEAR
+    // ——————————————————————————————————————————
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ——————————————————————————————————————————
+    // NAVBAR SCROLL
+    // ——————————————————————————————————————————
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ——————————————————————————————————————————
+    // ACTIVE NAV LINK (intersection observer)
+    // ——————————————————————————————————————————
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(s => sectionObserver.observe(s));
+
+    // ——————————————————————————————————————————
+    // MOBILE MENU
+    // ——————————————————————————————————————————
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+
+    function closeMobile() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    // ——————————————————————————————————————————
+    // SCROLL REVEAL
+    // ——————————————————————————————————————————
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // ——————————————————————————————————————————
+    // CONTACT DETAILS
+    // ——————————————————————————————————————————
+    const NANITECH_PHONE = '27658938239';   // international format, no +
+    const NANITECH_EMAIL = 'nanitechsolve@gmail.com';
+
+    // ——————————————————————————————————————————
+    // TOGGLE ORG NAME FIELD
+    // ——————————————————————————————————————————
+    function toggleOrgField() {
+      const type = document.getElementById('enquiryType').value;
+      const orgGroup = document.getElementById('orgNameGroup');
+      const orgInput = document.getElementById('orgName');
+      if (type === 'Organisation') {
+        orgGroup.style.display = 'flex';
+        orgInput.required = true;
+      } else {
+        orgGroup.style.display = 'none';
+        orgInput.required = false;
+        orgInput.value = '';
+      }
+    }
+
+    // ——————————————————————————————————————————
+    // COLLECT FORM DATA (returns object or null if invalid)
+    // ——————————————————————————————————————————
+    function collectFormData() {
+      const enquiryType = document.getElementById('enquiryType').value;
+      const fullName    = document.getElementById('fullName').value.trim();
+      const emailAddr   = document.getElementById('emailAddr').value.trim();
+      const phone       = document.getElementById('phone').value.trim();
+      const service     = document.getElementById('service').value;
+      const extraMsg    = document.getElementById('extraMsg').value.trim();
+      const orgName     = document.getElementById('orgName').value.trim();
+
+      if (!enquiryType) { alert('Please select whether you are enquiring as an Individual or Organisation.'); return null; }
+      if (!fullName)    { alert('Please enter your full name.'); return null; }
+      if (!emailAddr || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddr)) { alert('Please enter a valid email address.'); return null; }
+      if (!service)     { alert('Please select the service you are enquiring about.'); return null; }
+      if (enquiryType === 'Organisation' && !orgName) { alert('Please enter your organisation name.'); return null; }
+
+      return { enquiryType, fullName, emailAddr, phone, service, extraMsg, orgName };
+    }
+
+    // ——————————————————————————————————————————
+    // FORM SUBMIT → open modal
+    // ——————————————————————————————————————————
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!collectFormData()) return;
+      openEnquiryModal();
+    });
+
+    // ——————————————————————————————————————————
+    // MODAL OPEN / CLOSE
+    // ——————————————————————————————————————————
+    function openEnquiryModal() {
+      const modal = document.getElementById('enquiryModal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      // Trap focus: focus the modal card
+      setTimeout(() => document.getElementById('modalCard').focus(), 50);
+    }
+
+    function closeEnquiryModal() {
+      document.getElementById('enquiryModal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeEnquiryModal();
+    });
+
+    // ——————————————————————————————————————————
+    // BUILD MESSAGE BODY (shared by both channels)
+    // ——————————————————————————————————————————
+    function buildMessage(data, channel) {
+      const sep  = channel === 'email' ? '\n' : '%0A';
+      const dash = channel === 'email' ? '─────────────────────' : '─────────────────────';
+
+      let lines = [];
+      lines.push('Hello NaniTech Team,');
+      lines.push('');
+      lines.push('I would like to make an enquiry. Please find my details below:');
+      lines.push('');
+      lines.push(dash);
+      lines.push(`Enquiry Type  : ${data.enquiryType}`);
+      if (data.enquiryType === 'Organisation') {
+        lines.push(`Organisation  : ${data.orgName}`);
+      }
+      lines.push(`Full Name     : ${data.fullName}`);
+      lines.push(`Email Address : ${data.emailAddr}`);
+      if (data.phone) lines.push(`Phone Number  : ${data.phone}`);
+      lines.push(`Service       : ${data.service}`);
+      lines.push(dash);
+      if (data.extraMsg) {
+        lines.push('');
+        lines.push('Additional Information:');
+        lines.push(data.extraMsg);
+      }
+      lines.push('');
+      lines.push('I look forward to hearing from you.');
+      lines.push('');
+      lines.push(`Kind regards,`);
+      lines.push(data.fullName);
+
+      if (channel === 'email') return lines.join('\n');
+      // For WhatsApp: encode each line
+      return lines.map(l => encodeURIComponent(l)).join('%0A');
+    }
+
+    // ——————————————————————————————————————————
+    // SEND VIA EMAIL
+    // ——————————————————————————————————————————
+    function sendViaEmail() {
+      const data = collectFormData();
+      if (!data) { closeEnquiryModal(); return; }
+
+      const subject = encodeURIComponent(`NaniTech Enquiry – ${data.service} (${data.enquiryType})`);
+      const body    = encodeURIComponent(buildMessage(data, 'email'));
+      const mailto  = `mailto:${NANITECH_EMAIL}?subject=${subject}&body=${body}`;
+
+      window.location.href = mailto;
+      closeEnquiryModal();
+    }
+
+    // ——————————————————————————————————————————
+    // SEND VIA WHATSAPP
+    // ——————————————————————————————————————————
+    function sendViaWhatsApp() {
+      const data = collectFormData();
+      if (!data) { closeEnquiryModal(); return; }
+
+      const msgEncoded = buildMessage(data, 'whatsapp');
+      const waUrl = `https://wa.me/${NANITECH_PHONE}?text=${msgEncoded}`;
+
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      closeEnquiryModal();
+    }
+
+    // ——————————————————————————————————————————
+    // ANIMATED CANVAS BACKGROUND
+    // ——————————————————————————————————————————
+    (function() {
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, nodes = [], RAF;
+
+      function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+
+      function createNodes(count) {
+        nodes = [];
+        for (let i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 2 + 1
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 160) {
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = `rgba(0,212,255,${(1 - dist / 160) * 0.22})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw nodes
+        nodes.forEach(n => {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0,212,255,0.5)';
+          ctx.fill();
+
+          // Move
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        });
+
+        RAF = requestAnimationFrame(draw);
+      }
+
+      function init() {
+        resize();
+        const count = Math.min(80, Math.floor((W * H) / 16000));
+        createNodes(count);
+        cancelAnimationFrame(RAF);
+        draw();
+      }
+
+      window.addEventListener('resize', () => { resize(); createNodes(Math.min(80, Math.floor((W * H) / 16000))); }, { passive: true });
+      init();
+    })();
+  </script>
+
+</body>
+</html>
